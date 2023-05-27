@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:remote_ui/pages/home_page.dart';
 import 'package:remote_ui/pages/login_page.dart';
 import 'package:remote_ui/pages/remote_page.dart';
+import 'package:remote_ui/providers/auth_provider.dart';
 import 'package:remote_ui/routes.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const ProviderScope(child: MainApp()));
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       theme: ThemeData(useMaterial3: true),
       routerConfig: GoRouter(
+        refreshListenable: ref.read(authProvider),
         initialLocation: Routes.home.path,
         routes: [
           GoRoute(
@@ -35,6 +38,11 @@ class MainApp extends StatelessWidget {
             builder: (context, state) => const RemotePage(),
           ),
         ],
+        redirect: (context, state) {
+          var auth = ref.read(authProvider);
+          if (!auth.isSignedIn) return Routes.login.path;
+          return null;
+        },
       ),
     );
   }
