@@ -49,7 +49,6 @@ class MainApp extends ConsumerWidget {
               ]),
         ],
         redirect: (context, state) {
-          print(state.location);
           var auth = ref.read(authProvider);
           if (!auth.isSignedIn) return Routes.login.path;
           return null;

@@ -4,11 +4,17 @@ import 'package:go_router/go_router.dart';
 import 'package:remote_ui/providers/auth_provider.dart';
 import 'package:remote_ui/routes.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+  List<bool> selected = <bool>[true, false];
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -28,16 +34,32 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: const SafeArea(child: Text('Home')),
+      body: SafeArea(
+        child: Column(
+          children: [
+            ToggleButtons(
+              isSelected: selected,
+              onPressed: (index) => setState(() {
+                if (index == 0) {
+                  selected = [true, false];
+                } else {
+                  selected = [false, true];
+                }
+              }),
+              children: const [Text('Points'), Text('Badges')],
+            ),
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
         onTap: (value) {
           if (value == 4) context.goNamed(Routes.remote.name);
         },
         type: BottomNavigationBarType.fixed,
-        items: [
+        items: const [
           BottomNavigationBarItem(
-            icon: const Icon(Icons.person_outline),
+            icon: Icon(Icons.person_outline),
             label: 'Profile',
           ),
           BottomNavigationBarItem(
