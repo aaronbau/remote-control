@@ -19,4 +19,10 @@ class Auth extends ChangeNotifier {
     notifyListeners();
     return _isSignedIn;
   }
+
+  bool logout() {
+    _isSignedIn = false;
+    notifyListeners();
+    return _isSignedIn;
+  }
 }

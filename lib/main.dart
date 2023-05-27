@@ -37,17 +37,19 @@ class MainApp extends ConsumerWidget {
             builder: (context, state) => const LoginPage(),
           ),
           GoRoute(
-            path: Routes.home.path,
-            name: Routes.home.name,
-            builder: (context, state) => const HomePage(),
-          ),
-          GoRoute(
-            path: Routes.remote.path,
-            name: Routes.remote.name,
-            builder: (context, state) => const RemotePage(),
-          ),
+              path: Routes.home.path,
+              name: Routes.home.name,
+              builder: (context, state) => const HomePage(),
+              routes: [
+                GoRoute(
+                  path: Routes.remote.name,
+                  name: Routes.remote.name,
+                  builder: (context, state) => const RemotePage(),
+                ),
+              ]),
         ],
         redirect: (context, state) {
+          print(state.location);
           var auth = ref.read(authProvider);
           if (!auth.isSignedIn) return Routes.login.path;
           return null;

@@ -5,7 +5,12 @@ class RemotePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text('Remote'),
+        automaticallyImplyLeading: true,
+      ),
       body: SafeArea(child: Text('Remote')),
     );
   }
