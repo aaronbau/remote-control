@@ -10,8 +10,13 @@ class Auth extends ChangeNotifier {
 
   bool get isSignedIn => _isSignedIn;
 
-  void login() async {
-    _isSignedIn = true;
+  bool login({required String email, required String password}) {
+    if (email == 'dev@email.com' && password == '123') {
+      _isSignedIn = true;
+    } else {
+      _isSignedIn = false;
+    }
     notifyListeners();
+    return _isSignedIn;
   }
 }

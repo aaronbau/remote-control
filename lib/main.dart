@@ -17,7 +17,16 @@ class MainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      theme: ThemeData(useMaterial3: true),
+      theme: ThemeData(
+          useMaterial3: true,
+          inputDecorationTheme: const InputDecorationTheme(
+            border: OutlineInputBorder(),
+            enabledBorder: OutlineInputBorder(),
+            errorBorder: OutlineInputBorder(),
+            focusedBorder: OutlineInputBorder(),
+            disabledBorder: OutlineInputBorder(),
+            focusedErrorBorder: OutlineInputBorder(),
+          )),
       routerConfig: GoRouter(
         refreshListenable: ref.read(authProvider),
         initialLocation: Routes.home.path,
