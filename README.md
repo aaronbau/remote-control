@@ -1,5 +1,7 @@
 # remote_ui
 
+This project is built with Flutter.
+
 The credentials for the login are:
 - Email: dev@email.com
 - Password: 123
